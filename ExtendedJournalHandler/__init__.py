@@ -1,5 +1,6 @@
-#
 from systemd.journal import JournalHandler, send
+
+JOURNAL_KEY_PREFIX = "JOURNAL_"
 
 class ExtendedJournalHandler(JournalHandler):
 
@@ -16,9 +17,9 @@ class ExtendedJournalHandler(JournalHandler):
                 msg = self.format(record)
                 pri = self.mapPriority(record.levelno)
                 mid = getattr(record, 'MESSAGE_ID', None)
-                for key in self._extra:
-                    if hasattr(record, key):
-                        self._extra[key] = getattr(record, key)
+                for key in record.__dict__:
+                    if key.startswith(JOURNAL_KEY_PREFIX):
+                        self._extra[key[len(JOURNAL_KEY_PREFIX):]] = getattr(record, key)
                 send(msg,
                      MESSAGE_ID=mid,
                      PRIORITY=format(pri),
@@ -27,6 +28,6 @@ class ExtendedJournalHandler(JournalHandler):
                      CODE_FILE=record.pathname,
                      CODE_LINE=record.lineno,
                      CODE_FUNC=record.funcName,
-                     **dict((k, v) for k, v in self._extra.iteritems() if v))
+                     **self._extra)
         except Exception:
                 self.handleError(record)
