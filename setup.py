@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.0'
+version = '0.0.1'
 
 setup(name='ExtendedJournalHandler',
       version=version,
@@ -13,7 +13,7 @@ setup(name='ExtendedJournalHandler',
       author='ktarasz',
       author_email='ktarasz@quintagroup.com',
       url='',
-      license='Apache License 2.0Apache License 2.0',
+      license='Apache License 2.0',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=False,
