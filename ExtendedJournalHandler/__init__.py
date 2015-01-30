@@ -17,9 +17,10 @@ class ExtendedJournalHandler(JournalHandler):
                 msg = self.format(record)
                 pri = self.mapPriority(record.levelno)
                 mid = getattr(record, 'MESSAGE_ID', None)
+                extra = dict(self._extra)
                 for key in record.__dict__:
                     if key.startswith(JOURNAL_KEY_PREFIX):
-                        self._extra[key[len(JOURNAL_KEY_PREFIX):]] = getattr(record, key)
+                        extra[key[len(JOURNAL_KEY_PREFIX):]] = getattr(record, key)
                 send(msg,
                      MESSAGE_ID=mid,
                      PRIORITY=format(pri),
@@ -28,6 +29,6 @@ class ExtendedJournalHandler(JournalHandler):
                      CODE_FILE=record.pathname,
                      CODE_LINE=record.lineno,
                      CODE_FUNC=record.funcName,
-                     **self._extra)
+                     **extra)
         except Exception:
                 self.handleError(record)
