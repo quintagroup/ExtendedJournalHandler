@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import sys, os
 
 version = '0.0.1'
 
@@ -19,6 +18,7 @@ setup(name='ExtendedJournalHandler',
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
+          'systemd-python'
       ],
       entry_points="""
       # -*- Entry points: -*-
