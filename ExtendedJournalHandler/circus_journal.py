@@ -1,5 +1,6 @@
 from systemd import journal
 
+
 class JournalStream(object):
     def __init__(self, **kwargs):
         self.kwargs = dict([(item.upper(), kwargs[item],) for item in kwargs])
@@ -10,7 +11,6 @@ class JournalStream(object):
             CIRCUS_STREAM=data['name'],
             **self.kwargs
         )
-
 
     def close(self):
         pass

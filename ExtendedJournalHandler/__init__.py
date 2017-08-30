@@ -2,6 +2,7 @@ from systemd.journal import JournalHandler, send
 
 JOURNAL_KEY_PREFIX = "JOURNAL_"
 
+
 class ExtendedJournalHandler(JournalHandler):
 
     def emit(self, record):
